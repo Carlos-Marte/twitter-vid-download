@@ -3,10 +3,13 @@ import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import { useState } from 'react';
 import { urlRegExp } from '@/utils/regexps/regexps';
+import { useNavigate } from 'react-router-dom';
+import { getIdURL } from '@/utils/functions/getIdURL';
 
 const Home = () => {
   const [inputURL, setInputURL] = useState('');
   const [inputError, setInputError] = useState(null);
+  const navigate = useNavigate();
 
   const handleChangeInput = ({ target: { value } }) => {
     setInputURL(value);
@@ -23,6 +26,9 @@ const Home = () => {
       return setInputError(true);
     }
 
+    const vidId = getIdURL(inputURL);
+
+    navigate(`/download/${vidId}`);
     setInputError(null);
     setInputURL('');
   };
